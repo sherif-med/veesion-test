@@ -86,3 +86,7 @@ models/*
 # exclude tensorboard dir
 */tensorboard/
 Trials/*
+lightning_logs/*
+
+# Checkpoints dir
+checkpoints/*
