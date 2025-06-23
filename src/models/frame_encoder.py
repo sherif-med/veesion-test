@@ -7,11 +7,16 @@ class FrameEncoder(nn.Module):
         super().__init__()
         encoder = torchvision.models.resnet18(pretrained=True)
         self.encoder = nn.Sequential(*list(encoder.children())[:-1])  # Remove FC
+        self._projection_dim = projection_dim
         self.projector = nn.Sequential(
             nn.Linear(512, 256),
             nn.ReLU(),
             nn.Linear(256, projection_dim)
         )
+
+    @property
+    def projection_dim(self):
+        return self._projection_dim
 
     def forward(self, x):
         h = self.encoder(x).squeeze()
