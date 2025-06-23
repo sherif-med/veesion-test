@@ -1,6 +1,11 @@
 
 # Data folder
-data/*
+data/source_penn/frames/*
+data/source_penn/media_pipe_skeletons/*
+data/source_penn/original_skeletons/*
+data/source_penn/labels/*
+data/source_penn/predictions/*
+data/source_penn/v_c_predictions/*
 
 # Model data folder
 models/*
