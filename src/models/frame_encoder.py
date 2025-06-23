@@ -14,6 +14,6 @@ class FrameEncoder(nn.Module):
         )
 
     def forward(self, x):
-        h = self.encoder(x)#.squeeze()
+        h = self.encoder(x).squeeze()
         z = self.projector(h)
         return z

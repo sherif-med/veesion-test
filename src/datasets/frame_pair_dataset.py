@@ -16,6 +16,9 @@ simclr_aug = T.Compose([
 
 # -- 2. Dataset that returns two augmented views per frame --
 class FramePairDataset(Dataset):
+    """
+    This should be lazy loaded dataset (maybe using trochcodec)
+    """
     def __init__(self, root_dir):
         self.paths = glob.glob(os.path.join(root_dir, "*.mp4"))
         self.video_frames = {}
@@ -30,9 +33,10 @@ class FramePairDataset(Dataset):
     def __getitem__(self, idx, video_idx=0):
         idx = idx % len(self)
         current_video_len = len(self.video_frames[self.paths[video_idx]])
-        if idx <= current_video_len:
+        if idx < current_video_len:
             current_frame = self.video_frames[self.paths[video_idx]][idx]
-            return simclr_aug(current_frame), simclr_aug(current_frame)
+            pair_left, pair_right = simclr_aug(current_frame), simclr_aug(current_frame)
+            return {"pair_left": pair_left.float(), "pair_right": pair_right.float()}
         else:
             video_idx += 1
             return self.__getitem__(idx-current_video_len, video_idx)
