@@ -99,18 +99,6 @@ uv sync
 This command will install all the packages listed in `pyproject.toml`, including torch and torchvision with CUDA support if your system and `uv` detect a compatible GPU.
 
 
-#### 5. Prepare Data
-
-The project expects video files and their corresponding MediaPipe skeleton JSONs in specific directories. Create the necessary data directories:
-
-```bash
-mkdir -p data/source_penn/videos
-mkdir -p data/source_penn/media_pipe_skeletons
-```
-
-- Place your `.mp4` video files into `data/source_penn/videos/`
-- The skeleton detection script will populate `data/source_penn/media_pipe_skeletons/` with `.json` files
-
 ## Running the Project
 
 The `scripts/` directory contains the main executable files for different tasks.
@@ -142,6 +130,12 @@ This script will:
 - Use predefined `file_list` and `labels` for training and validation (you might need to modify these lists in the script to match your dataset)
 - Train an `LSTMClassifier` using PyTorch Lightning
 - Save the best model checkpoint to `checkpoints/` based on `val_loss`
+
+#### Track training progress in tensorboard
+
+```bash
+tensorboard --logdir lightning_logs
+```
 
 #### Run Prediction with the Recurrent Pose Classification Model
 
