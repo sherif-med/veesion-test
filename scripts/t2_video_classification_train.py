@@ -13,6 +13,7 @@ NUM_CLASSES = 4
 LEARNING_RATE = 1e-3
 NUM_EPOCHS = 20
 PRETRAINED_FRAME_ENCODER_PATH = "checkpoints/enocder/best-frame-encoder-epoch=18-ssl_loss=0.88.ckpt"
+TEMPORAL_MODELING = "lstm"
 
 if __name__ == "__main__":
     # --- 1. Data ---
@@ -34,11 +35,19 @@ if __name__ == "__main__":
     # Initialize the model
     task = VideoClassificationTask(
         frame_encoder_ckpt=PRETRAINED_FRAME_ENCODER_PATH,
+        temoral_modeling=TEMPORAL_MODELING,
         hidden_dim=HIDDEN_DIM,
         num_layers=NUM_LAYERS,
         num_classes=NUM_CLASSES,
         learning_rate=LEARNING_RATE
     )
+
+    """task = VideoClassificationTask(
+        frame_encoder_ckpt=PRETRAINED_FRAME_ENCODER_PATH,
+        temoral_modeling="transformer",
+        num_classes=NUM_CLASSES,
+        learning_rate=LEARNING_RATE
+    )"""
 
     # Callbacks
     checkpoint_callback = ModelCheckpoint(

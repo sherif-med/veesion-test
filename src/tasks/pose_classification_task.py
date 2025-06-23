@@ -46,5 +46,5 @@ class PoseClassificationTask(pl.LightningModule):
         return output
 
     def configure_optimizers(self):
-        optimizer = torch.optim.Adam(self.model.parameters(), lr=self.learning_rate)
+        optimizer = torch.optim.AdamW(self.model.parameters(), lr=self.learning_rate)
         return optimizer
